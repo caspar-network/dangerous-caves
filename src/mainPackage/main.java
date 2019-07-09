@@ -103,7 +103,7 @@ public class main extends JavaPlugin implements Listener, CommandExecutor{
 	FileConfiguration config = getConfig();
 	public ConsoleCommandSender console = getServer().getConsoleSender();
 	Random randor = new Random();
-	//public World wor = null;
+	public World wor = null;
 	boolean hasWorlds = false;
 	public static List<String> worlds = new ArrayList<String>();
 	public boolean canSave = false;
@@ -286,7 +286,7 @@ public class main extends JavaPlugin implements Listener, CommandExecutor{
 		config.addDefault("Smoke Demon = ", "Smoke Demon");
 		config.addDefault("Alpha Spider = ", "Alpha Spider");
 		config.addDefault("Dead Miner = ", "Dead Miner");
-		config.addDefault("Hexed Armor = ", "Hexed Armor");
+		config.addDefault("Hexed Armour = ", "Hexed Armour");
 		config.addDefault(":::::::::::::::::::::::::::::::::::", "");
 		config.addDefault("Crying Bat Chance ", 0);
 		config.addDefault("Magma Monster Chance ", 0);
@@ -324,27 +324,27 @@ public class main extends JavaPlugin implements Listener, CommandExecutor{
 		listitem3.add("TORCH");
 		listitem3.add("DIRT");
 		config.addDefault("Items that can spawn in chests ", listitem3);
-		//config.getString("Dead Miner = ")
+		config.getString("Dead Miner = ")
 		config.options().copyDefaults(true);
 		saveConfig();
 	}
 	
 	@EventHandler
 	public void setWorld(PlayerJoinEvent e) {
-		//for(String namew : worlds) {
-			//World wor = Bukkit.getWorld(namew);
-			//wor = e.getPlayer().getWorld();
-			//List<BlockPopulator> bp = new ArrayList<BlockPopulator>(wor.getPopulators());
-			//for(BlockPopulator bps : bp) {
-			//	if(bps.toString().length()>=25) {
-			//		if(bps.toString().substring(0, 25).equals("mainPackage.CaveGenerator")) {
-			//			wor.getPopulators().remove(bps);
-			//		}
-			//	}
-			//}
-			//wor.getPopulators().clear();
-			//wor.getPopulators().add(new CaveGenerator());
-			//console.sendMessage("" + e.getPlayer().getWorld().getPopulators());
+		for(String namew : worlds) {
+			World wor = Bukkit.getWorld(namew);
+			wor = e.getPlayer().getWorld();
+			List<BlockPopulator> bp = new ArrayList<BlockPopulator>(wor.getPopulators());
+			for(BlockPopulator bps : bp) {
+				if(bps.toString().length()>=25) {
+					if(bps.toString().substring(0, 25).equals("mainPackage.CaveGenerator")) {
+						wor.getPopulators().remove(bps);
+					}
+				}
+			}
+			wor.getPopulators().clear();
+			wor.getPopulators().add(new CaveGenerator());
+			console.sendMessage("" + e.getPlayer().getWorld().getPopulators());
 		if(hasWorlds==false) {
 			caveins = config.getBoolean("Enable Cave-Ins ");
 			hungerdark = config.getBoolean("Enable Hungering Darkness ");
@@ -355,7 +355,7 @@ public class main extends JavaPlugin implements Listener, CommandExecutor{
 			cavechance = config.getInt("Cave Structure Chance ");
 			cavestruct = config.getBoolean("Enable Cave Structures ");
 		}
-		//}
+		}
 	}
 	
 	@Override
@@ -407,8 +407,8 @@ public class main extends JavaPlugin implements Listener, CommandExecutor{
 		else if(e.hasMetadata(config.getString("Dead Miner = "))) {
 			return config.getString("Dead Miner = ");
 		}
-		else if(e.hasMetadata(config.getString("Hexed Armor = "))) {
-			return config.getString("Hexed Armor = ");
+		else if(e.hasMetadata(config.getString("Hexed Armour = "))) {
+			return config.getString("Hexed Armour = ");
 		}
 		else if(e.hasMetadata("The Darkness")) {
 			return "The Darkness";
@@ -1081,7 +1081,7 @@ public class main extends JavaPlugin implements Listener, CommandExecutor{
 	public static void removeItemNaturally(Player p) {
 		try {
 		if (p.getInventory().getItemInMainHand().getAmount() <= 1) {
-			//p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+			p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 			p.getInventory().getItemInMainHand().setAmount(0);
 		} else {
 			p.getInventory().getItemInMainHand().setAmount(p.getInventory().getItemInMainHand().getAmount() - 1);
